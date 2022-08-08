@@ -1,12 +1,14 @@
-import { User } from './../../../entities/User';
-import { ICreateUserRequestDTO } from './createUserDTO';
-import { IUserRepository } from './../../../repositories/UserRepository/IUserRepository';
+
+import { User } from '../../entities/User';
+import { IUserRequestDTO } from './UserRequestDTO';
+import { IUserRepository } from '../../repositories/Interfaces/IUserRepository';
 
 export class CreateUserUseCase {
     constructor(
-        private userRepository:IUserRepository
+        private userRepository: IUserRepository
     ) {}
-    async execute(data:ICreateUserRequestDTO) {
+    async execute(data:IUserRequestDTO) {
+
         const userAlreadyExists = await this.userRepository.findByEmail(data.email);
         if(userAlreadyExists) {
             throw new Error("User Already exists!"); 
