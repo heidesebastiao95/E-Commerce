@@ -11,9 +11,9 @@ class App {
     }
 
     private boot(): void {
-        this.express.use(express.json());
+        this.express.use(express.json());//informa ao node que use json
         this.express.use(cors());
-        this.express.use(urlencoded({extended:true}));
+        this.express.use(urlencoded({extended:true}));//permite capturar dados da requisicao usando formato json
     }
 
     private routes() : void {
