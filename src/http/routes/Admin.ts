@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import Controllers from "../../useCases/index";
+import Controllers from "../../domain/useCases/index";
 
 const AdminRoutes = Router();
 

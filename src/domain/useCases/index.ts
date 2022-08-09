@@ -1,5 +1,6 @@
 
-import { CreateUserController } from '../http/controllers/admin/usersControllers/CreateUserController';
+
+import { CreateUserController } from '../../http/controllers/admin/usersControllers/CreateUserController';
 import { MysqlUserRepository } from './../repositories/implementations/mysqlImplementations/MysqlUserRepository';
 import { CreateUserUseCase } from './usersCases/createUserUseCase';
 
