@@ -19,9 +19,12 @@ export class CreateUserController {
             
             return response.status(401).json({
                 message: "unexpected error"
-            });
+            }); 
         }
-       
         
     }
+
+    async  test(request: Request, response:Response): Promise<Response> {
+        return response.send("From test");
+    };
 }

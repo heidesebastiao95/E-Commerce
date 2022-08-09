@@ -1,5 +1,7 @@
 import express, { urlencoded } from 'express';
 import cors from 'cors';
+import { AdminRoutes } from './http/routes/Admin';
+
 
 class App {
     public express : express.Application;
@@ -17,9 +19,7 @@ class App {
     }
 
     private routes() : void {
-        this.express.get('/',(request, response) => {
-            return response.send("Hello World");
-        });
+        this.express.use(AdminRoutes);
     }
 }
 

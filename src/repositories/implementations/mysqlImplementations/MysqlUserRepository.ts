@@ -13,6 +13,6 @@ export class MysqlUserRepository implements IUserRepository {
     async findByEmail(email: string): Promise<User | undefined>  {
         const user = this.users.find(user => user.email == email);
         
-        return user;
+        return user; 
     }
 }
