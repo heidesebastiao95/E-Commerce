@@ -7,7 +7,7 @@ export class CreateUserController {
         private createUserUseCase: CreateUserUseCase
     ) {}
 
-    async handle(request: Request , response: Response): Promise<Response> {
+    async execute(request: Request , response: Response): Promise<Response> {
         var name: string =  request.body.name;
         var email: string =  request.body.email;
         var password: string =  request.body.password;
