@@ -1,35 +1,39 @@
+import { GetUserController } from './../../http/controllers/admin/usersControllers/GetUserController';
 import { CreateUserController } from '../../http/controllers/admin/usersControllers/CreateUserController';
 import { MysqlUserRepository } from './../repositories/implementations/mysqlImplementations/MysqlUserRepository';
 import { CreateUserUseCase } from './usersCases/createUserUseCase';
+import { GetUserUseCase } from './usersCases/getUserUseCase';
 
+const mysqlUserRepository = new MysqlUserRepository();
 class Transporter {
 
-    private mysqlUserRepository: MysqlUserRepository;
-       
-
     constructor() {
-        this.mysqlUserRepository = new MysqlUserRepository();
+        
     }
 
-    private initializeCreateUserUseCase(): CreateUserUseCase {
-        return new CreateUserUseCase(this.mysqlUserRepository);
+    private initializeUseCases(
+        UserRepository: MysqlUserRepository
+    ) {
+        return {
+            "createUseCase": new CreateUserUseCase(UserRepository),
+            "getUserUseCase": new GetUserUseCase(UserRepository),
+        }
     }
 
-    private initializeCreateUserController(): CreateUserController {
-        return new CreateUserController(this.initializeCreateUserUseCase());
-    }
+    private initializeControllers() {
 
-    public getCombination() {
-        const createUserUseCase = this.initializeCreateUserUseCase();
-        const createUserController = this.initializeCreateUserController();
+        const useCases = this.initializeUseCases(mysqlUserRepository);
 
         return {
-            //Controllers
-            "createUserController":createUserController,
-            //USeCases
-            "createUserUseCase": createUserUseCase
-        };
+            "createUserController": new CreateUserController(useCases.createUseCase),
+            "getUserController": new GetUserController(useCases.getUserUseCase)
+        }
+    }
+
+    public Combine() {
+
+        return this.initializeControllers()
     }
 }
 
-export default new Transporter().getCombination();
+export default new Transporter().Combine();

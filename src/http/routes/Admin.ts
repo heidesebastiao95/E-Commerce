@@ -3,7 +3,7 @@ import Controllers from "../../domain/useCases/index";
 
 const AdminRoutes = Router();
 
- AdminRoutes.get('/', Controllers.createUserController.test);
+ AdminRoutes.get('/', Controllers.getUserController.execute);
 
 
 export {AdminRoutes};
