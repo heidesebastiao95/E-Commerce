@@ -1,9 +1,11 @@
-import {  Router } from "express";
+import { Response, Router, Request } from 'express';
 import Controllers from "../../domain/useCases/index";
 
 const AdminRoutes = Router();
 
- AdminRoutes.get('/', Controllers.getUserController.execute);
+ AdminRoutes.get('/',(request: Request, response: Response) => {
+    Controllers.getUserController.execute(request,response);
+ });
 
 
 export {AdminRoutes};

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 import { GetUserUseCase } from './../../../../domain/useCases/usersCases/getUserUseCase';
 
 export class GetUserController {
@@ -7,10 +7,13 @@ export class GetUserController {
         private getUserUseCase: GetUserUseCase
     ) {}
 
-    async execute(request: Request, response: Response): Promise<Response> {
-      const users = await this.getUserUseCase.execute()
+    public async execute(request: Request, response: Response): Promise<Response> {
 
-       return response.send("from get userController");
+      const users = await this.getUserUseCase.execute().then(users => {
+        return users
+      });
+      
+       return response.send("from get userController"+ users);
     }
     
 }

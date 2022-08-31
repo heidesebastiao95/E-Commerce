@@ -4,6 +4,7 @@ import { AdminRoutes } from './http/routes/Admin';
 
 
 class App {
+    
     public express : express.Application;
 
     constructor() {

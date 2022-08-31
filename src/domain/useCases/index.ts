@@ -1,28 +1,26 @@
 import { GetUserController } from './../../http/controllers/admin/usersControllers/GetUserController';
 import { CreateUserController } from '../../http/controllers/admin/usersControllers/CreateUserController';
-import { MysqlUserRepository } from './../repositories/implementations/mysqlImplementations/MysqlUserRepository';
+import { MysqlUserRepository } from '../../repositories/implementations/mysqlImplementations/MysqlUserRepository';
 import { CreateUserUseCase } from './usersCases/createUserUseCase';
 import { GetUserUseCase } from './usersCases/getUserUseCase';
+import { IUserRepository } from '../../repositories/Interfaces/IUserRepository';
 
-const mysqlUserRepository = new MysqlUserRepository();
 class Transporter {
 
-    constructor() {
-        
-    }
+    constructor(
+        private repository: IUserRepository
+    ) {}
 
-    private initializeUseCases(
-        UserRepository: MysqlUserRepository
-    ) {
+    private initializeUseCases() {
         return {
-            "createUseCase": new CreateUserUseCase(UserRepository),
-            "getUserUseCase": new GetUserUseCase(UserRepository),
+            "createUseCase": new CreateUserUseCase(this.repository),
+            "getUserUseCase": new GetUserUseCase(this.repository),
         }
     }
 
     private initializeControllers() {
 
-        const useCases = this.initializeUseCases(mysqlUserRepository);
+        const useCases = this.initializeUseCases();
 
         return {
             "createUserController": new CreateUserController(useCases.createUseCase),
@@ -34,6 +32,7 @@ class Transporter {
 
         return this.initializeControllers()
     }
+
 }
 
-export default new Transporter().Combine();
+export default new Transporter( new MysqlUserRepository()).Combine();

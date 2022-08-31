@@ -1,10 +1,5 @@
-import { IUserRepository } from "../../repositories/Interfaces/IUserRepository";
-
-type Options = {
-    name?: string,
-    email?:string,
-    role?:string,
-}
+import { IUserRepository } from "../../../repositories/Interfaces/IUserRepository";
+import { UserRequestDTO } from "../../RequestDTOs/UserDTO";
 
 export class GetUserUseCase {
 
@@ -13,7 +8,10 @@ export class GetUserUseCase {
     ){}
 
     async execute() {
-        
-       return this.userRepository.getAll();
+        const users = await this.userRepository.getAll().then(users => {
+            return users;
+        });
+
+       return users;
     }
 }
